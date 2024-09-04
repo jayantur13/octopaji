@@ -6,6 +6,12 @@ import jwt from "jsonwebtoken";
 import { createAppAuth } from "@octokit/auth-app";
 // Load dotenv at the top of your file
 import dotenv from "dotenv";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // Configure dotenv
 dotenv.config();
@@ -117,11 +123,15 @@ app.use(express.json());
 app.use(express.static("./")); //For the website
 
 app.get("/", (req, res) => {
-  return res.sendFile("index.html");
+  const configPath = path.join(__dirname, "./index.html");
+  const file = fs.readFileSync(configPath, "utf8");
+  return res.sendFile(file);
 });
 
 app.get("/privacy-policy", (req, res) => {
-  return res.sendFile("privacy-policy.html");
+  const configPath = path.join(__dirname, "./privacy-policy");
+  const file = fs.readFileSync(configPath, "utf8");
+  return res.sendFile(file);
 });
 
 // Verify the webhook signature
