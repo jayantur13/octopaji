@@ -124,16 +124,17 @@ async function handleInstallationEvent(payload) {
 
 const app = express();
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));; //For the website;root
+// Middleware to serve static files from the public directory
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.get("/", (req, res) => {
-  const configPath = path.join(__dirname, "./views/index.html");
-  return res.sendFile(configPath);
+// Route to serve the index.html file
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'index.html'));
 });
 
-app.get("/privacypolicy", (req, res) => {
-  const configPath = path.join(__dirname, "./views/privacypolicy.html");
-  return res.sendFile(configPath);
+// Route to serve the privacy policy page
+app.get('/privacypolicy', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'privacypolicy.html'));
 });
 
 // Verify the webhook signature
