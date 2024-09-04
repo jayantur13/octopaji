@@ -127,7 +127,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/privacy-policy", (req, res) => {
-  const configPath = path.join(__dirname, "./views/privacy-policy.html");
+  const configPath = path.join(__dirname, "./views/privacypolicy.html");
   return res.sendFile(configPath);
 });
 
