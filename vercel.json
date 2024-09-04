@@ -1,10 +1,25 @@
 {
-    "version": 2,
-    "name": "octo-paji",
-    "builds": [
-       { "src": "index.js", "use": "@vercel/node" }
-    ],
-    "routes": [
-       { "src": "/(.*)", "dest": "/index.js" }
-    ]
+   "name": "octopaji",
+   "version": 2,
+   "public": true,
+   "builds": [
+     {
+       "src": "server.js",
+       "use": "@vercel/node"
+     },
+     {
+       "src": "public/**",
+       "use": "@vercel/static"
+     }
+   ],
+   "routes": [
+     {
+       "src": "/((?!.*\\.\\w+$).*)",
+       "dest": "/index.js"
+     },
+     {
+       "src": "/(.+\\.[a-z]+)$",
+       "dest": "/public/$1"
+     }
+   ]
  }
