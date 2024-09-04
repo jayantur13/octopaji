@@ -1,7 +1,12 @@
 import express from "express";
 import { createHmac } from "crypto";
 import { Octokit } from "@octokit/rest";
-import { gifHeight, gifWidth, getGifs, keySearchTerms } from "./utils/api.js";
+import {
+  gifHeight,
+  gifWidth,
+  getGifs,
+  keySearchTerms,
+} from "./utils/api.js";
 import jwt from "jsonwebtoken";
 import { createAppAuth } from "@octokit/auth-app";
 // Load dotenv at the top of your file
@@ -31,7 +36,7 @@ const keywords = [
 const installationStore = new Map(); // Simple in-memory store
 
 // Read the private key from the env
-const privateKey = process.env.PKEY.replace(/\\n/g, '\n');
+const privateKey = process.env.PKEY.replace(/\\n/g, "\n");
 const appId = process.env.APP_ID; // Replace with your GitHub App ID
 
 let jwtToken = generateJWT(appId, privateKey);
@@ -119,14 +124,14 @@ async function handleInstallationEvent(payload) {
 
 const app = express();
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "public"))); //For the website;root
+app.use(express.static(path.join(__dirname, 'public')));; //For the website;root
 
 app.get("/", (req, res) => {
   const configPath = path.join(__dirname, "./views/index.html");
   return res.sendFile(configPath);
 });
 
-app.get("/privacy-policy", (req, res) => {
+app.get("/privacypolicy", (req, res) => {
   const configPath = path.join(__dirname, "./views/privacypolicy.html");
   return res.sendFile(configPath);
 });
