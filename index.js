@@ -119,15 +119,15 @@ async function handleInstallationEvent(payload) {
 
 const app = express();
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "./"))); //For the website
+app.use(express.static(path.join(__dirname, "/"))); //For the website;root
 
 app.get("/", (req, res) => {
-  const configPath = path.join(__dirname, "index.html");
+  const configPath = path.join(__dirname, "./index.html");
   return res.sendFile(configPath);
 });
 
 app.get("/privacy-policy", (req, res) => {
-  const configPath = path.join(__dirname, "privacy-policy");
+  const configPath = path.join(__dirname, "./privacy-policy.html");
   return res.sendFile(configPath);
 });
 
