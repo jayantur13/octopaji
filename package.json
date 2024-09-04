@@ -1,0 +1,38 @@
+{
+  "name": "octopaji",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Github bot that posts gif,when installed in your repos",
+  "author": "Jayant Navrange",
+  "license": "MIT",
+  "homepage": "https://github.com/jayantur13/OctoPaji",
+  "readme": "https://github.com/jayantur13/OctoPaji#readme",
+  "keywords": [
+    "bot",
+    "github-bot",
+    "githubbot",
+    "ghbot",
+    "gifbot",
+    "meme-maker"
+  ],
+  "scripts": {
+    "dev": "nodemon ./index.js",
+    "start": "node ./index.js"
+  },
+  "dependencies": {
+    "@octokit/auth-app": "^7.1.0",
+    "@octokit/rest": "^21.0.2",
+    "axios": "^1.7.4",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "js-yaml": "^4.1.0",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "engines": {
+    "node": ">= 18"
+  },
+  "type": "module",
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}

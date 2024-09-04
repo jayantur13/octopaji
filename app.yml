@@ -1,0 +1,20 @@
+# bot-config.yml
+
+# bot-config.yml
+
+bot:
+  event_triggers:
+    - push
+    - issues
+    - issue_comment
+    - installation
+    - installation_repositories
+    - deployment
+    - label
+    - check_run
+    - check_suite
+  gif_settings:
+    gif_limit: 10 # Number of GIFs to fetch from Tenor API
+    gif_randomised: false # Random default is false
+    gif_width: 320 # Width of GIF in the comment
+    gif_height: 180 # Height of GIF in the comment
