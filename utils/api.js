@@ -44,7 +44,7 @@ const keySearchTerms = [
     term: ["old pain", "migrane"],
   },
   {
-    key: ["issue reopened"],
+    key: ["issue reopened", "reopened issue"],
     term: ["self slap", "bad days"],
   },
   {
