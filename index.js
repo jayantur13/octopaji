@@ -1,12 +1,7 @@
 import express from "express";
 import { createHmac } from "crypto";
 import { Octokit } from "@octokit/rest";
-import {
-  gifHeight,
-  gifWidth,
-  getGifs,
-  keySearchTerms,
-} from "./utils/api.js";
+import { gifHeight, gifWidth, getGifs, keySearchTerms } from "./utils/api.js";
 import jwt from "jsonwebtoken";
 import { createAppAuth } from "@octokit/auth-app";
 // Load dotenv at the top of your file
@@ -125,16 +120,16 @@ async function handleInstallationEvent(payload) {
 const app = express();
 app.use(express.json());
 // Middleware to serve static files from the public directory
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 
 // Route to serve the index.html file
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'index.html'));
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "views", "index.html"));
 });
 
 // Route to serve the privacy policy page
-app.get('/privacypolicy', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'privacypolicy.html'));
+app.get("/privacypolicy", (req, res) => {
+  res.sendFile(path.join(__dirname, "views", "privacypolicy.html"));
 });
 
 // Verify the webhook signature
@@ -189,12 +184,6 @@ app.post(
       case "check_run":
       case "check_suite":
         await handleCheckRunEvent(payload);
-        break;
-      case "discussion":
-        await handleDiscussionEvent(payload);
-        break;
-      case "discussion_comment":
-        await handleDiscussionCommentEvent(payload);
         break;
       // More cases here as needed
     }
@@ -325,7 +314,7 @@ async function handleNewIssue(payload, gifs) {
   let similarIssuesCommented = false;
 
   if (similarIssues && similarIssues.length > 0) {
-    const comment = `👉🏻 Similar issues found, please check: <br/> - ${similarIssues}`;
+    const comment = `👉🏻 Similar issues found, please check: <br/>${similarIssues}`;
     await postComment(payload, comment);
     similarIssuesCommented = true;
   }
@@ -377,7 +366,7 @@ async function handleNewPR(payload, gifs) {
   let similarPRsCommented = false;
 
   if (similarPRs && similarPRs.length > 0) {
-    const comment = `👉🏻 Similar PRs found, please check: <br/> - ${similarPRs}`;
+    const comment = `👉🏻 Similar PRs found, please check: <br/>${similarPRs}`;
     await postComment(payload, comment);
     similarPRsCommented = true;
   }
@@ -387,14 +376,14 @@ async function handleNewPR(payload, gifs) {
 
     if (!similarPRsCommented) {
       const comment = generateComment(
-        `😵 Oh no! A new PR spotted. Thank you for your contribution!`,
+        `🤝😁 Thankyou for your pull request!`,
         gifs
       );
       await postComment(payload, comment);
     }
   } else if (!similarPRsCommented) {
     const comment = generateComment(
-      `😵 Oh no! A new PR spotted. Thank you for your contribution!`,
+      `🤝😁 Thankyou for your pull request!`,
       gifs
     );
     await postComment(payload, comment);
@@ -526,7 +515,7 @@ async function handleEvent(searchKey, payload) {
           await postComment(payload, comment);
           break;
         case "merge conflict":
-          comment = `⚔️ Merge Conflict,resolve it.<br/><img src="${gifs}" width="${gifWidth}" alt="tenorGif" height="${gifHeight}"/>
+          comment = `⚔️ Merge Conflict,please resolve it.<br/><img src="${gifs}" width="${gifWidth}" alt="tenorGif" height="${gifHeight}"/>
           > [Via Tenor](https://tenor.com/)`;
           await postComment(payload, comment);
           break;
@@ -542,6 +531,11 @@ async function handleEvent(searchKey, payload) {
           break;
         case "issue opened":
           await handleNewIssue(payload, gifs);
+          break;
+        case "reopened issue":
+          comment = `😨😱 This issue has been reopened.<br/><img src="${gifs}" width="${gifWidth}" alt="tenorGif" height="${gifHeight}"/>
+          > [Via Tenor](https://tenor.com/)`;
+          await postComment(payload, comment);
           break;
         case "branch updated":
           await handleBranchUpdated(payload, gifs);
