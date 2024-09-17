@@ -143,7 +143,7 @@ async function getGifs(term) {
     const gifUrls = response.data.results;
     if (gifUrls.length > 0) {
       const topGifs =
-        gifUrls[0]["media_formats"]["mediumgif"].url || "No GIF found.";
+        gifUrls[0]["media_formats"]["tinygif"].url || "No GIF found.";
       return topGifs;
     }
   } catch (error) {
