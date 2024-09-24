@@ -178,13 +178,6 @@ app.post(
       case "issue_comment":
         await handleIssueCommentEvent(payload);
         break;
-      case "deployment_status":
-        await handleDeploymentEvent(payload);
-        break;
-      case "check_run":
-      case "check_suite":
-        await handleCheckRunEvent(payload);
-        break;
       // More cases here as needed
     }
 
@@ -415,60 +408,6 @@ async function handleIssueEvent(payload) {
   }
 }
 
-async function handleDeploymentEvent(payload) {
-  const status = payload.deployment_status.state;
-  if (status === "success") {
-    await handleEvent("deployed", payload);
-  } else {
-    if (status === "failure" || status === "error") {
-      await handleEvent("deployment failed", payload);
-    }
-    if (status === "cancelled" || status === "canceled") {
-      await handleEvent("deployment canceled", payload);
-    }
-    if (status === "timed_out") {
-      await handleEvent("deployment timed out", payload);
-    } else {
-      await handleEvent("deployment unknown status", payload);
-      console.log(`Unhandled deployment status: ${status}`);
-    }
-  }
-}
-
-async function handleCheckRunEvent(payload) {
-  // Log the payload for debugging purposes
-  console.log(
-    "Received check_run event payload:",
-    JSON.stringify(payload, null, 2)
-  );
-
-  // Check if check_run exists
-  if (payload.check_run) {
-    const conclusion = payload.check_run.conclusion;
-    const name = payload.check_run.name || ""; // Default to empty string if undefined
-
-    if (conclusion) {
-      if (conclusion === "success") {
-        if (name.toLowerCase().includes("lint")) {
-          await handleEvent("code style", payload);
-        } else if (name.toLowerCase().includes("deploy")) {
-          await handleEvent("deployed", payload);
-        }
-      } else if (conclusion === "failure") {
-        await handleEvent("code style", payload);
-      }
-    } else {
-      console.warn(
-        "check_run.conclusion is undefined. Skipping event processing."
-      );
-    }
-  } else {
-    console.error(
-      "check_run is undefined in the payload. Cannot process event."
-    );
-  }
-}
-
 //A comment on issue is created,edited or deleted
 async function handleIssueCommentEvent(payload) {
   const action = payload.action;
@@ -540,21 +479,7 @@ async function handleEvent(searchKey, payload) {
         case "branch updated":
           await handleBranchUpdated(payload, gifs);
           break;
-        case "deployed":
-          comment = `🚀 Deployment successful, hooray!<br/><img src="${gifs}" width="${gifWidth}" alt="tenorGif" height="${gifHeight}"/>
-          > [Via Tenor](https://tenor.com/)`;
-          await postComment(payload, comment);
-          break;
-        case "deployment canceled":
-          comment = `❌ Deployment was canceled.<br/><img src="${gifs}" width="${gifWidth}" alt="tenorGif" height="${gifHeight}"/>
-          > [Via Tenor](https://tenor.com/)`;
-          await postComment(payload, comment);
-          break;
-        case "code style":
-          comment = `🔍 Code style issues detected.<br/><img src="${gifs}" width="${gifWidth}" alt="tenorGif" height="${gifHeight}"/><br/>> Please review the guidelines and make necessary adjustments.
-          > [Via Tenor](https://tenor.com/)`;
-          await postComment(payload, comment);
-          break;
+        
       }
     }
   }

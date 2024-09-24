@@ -52,22 +52,6 @@ const keySearchTerms = [
     term: ["puzzled", "not fitting"],
   },
   {
-    key: ["new discussion", "discussion created"],
-    term: ["people chatting", "looking for answer"],
-  },
-  {
-    key: ["discussion answered", "new discussion comment"],
-    term: ["got it", "wondering"],
-  },
-  {
-    key: ["discussion closed"],
-    term: ["end of discussion"],
-  },
-  {
-    key: ["code style", "lint error", "style guide"],
-    term: ["cleaning up", "making adjustment", "fixing"],
-  },
-  {
     key: ["branch out of date", "needs rebasing", "update required"],
     term: ["rewinding", "updating", "catching up"],
   },
@@ -110,10 +94,6 @@ const keySearchTerms = [
   {
     key: ["approved", "reviewed", "pull request approved"],
     term: ["thumbs up", "clapping", "nodding in approval"],
-  },
-  {
-    key: ["deployed", "deployment successful", "successfully deployed"],
-    term: ["fireworks", "launch success", "mission accomplished"],
   },
   {
     key: ["fixed", "solved", "issue resolved"],
