@@ -23,6 +23,12 @@ CLIENT_KEY=Alpha numeric (anything)
 API_KEY=From_Tenor
 ```
 
+## Bot Features
+
+- Search for similar issue/PR (Make a comment)
+- Comment gif for various event related to "issue and PR"
+- **More events planned (Needs proper implementaton with no fail)
+
 ## Bot Installation
 
 ```sh

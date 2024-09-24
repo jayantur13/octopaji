@@ -9,10 +9,7 @@ bot:
     - issue_comment
     - installation
     - installation_repositories
-    - deployment
     - label
-    - check_run
-    - check_suite
   gif_settings:
     gif_limit: 10 # Number of GIFs to fetch from Tenor API
     gif_randomised: false # Random default is false
