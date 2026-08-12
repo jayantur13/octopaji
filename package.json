@@ -25,7 +25,7 @@
     "axios": "^1.18.0",
     "dotenv": "^16.4.5",
     "express": "^4.22.2",
-    "js-yaml": "^4.3.0",
+    "js-yaml": "^4.3.1",
     "jsonwebtoken": "^9.0.2"
   },
   "engines": {
